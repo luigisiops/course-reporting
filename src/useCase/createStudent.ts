@@ -1,3 +1,4 @@
+import {Student} from '../Entities/student/student'
 interface studentData {
     firstName: string;
     lastName: string;
@@ -12,6 +13,10 @@ export class CreateStudent {
         return new CreateStudent()
     }
     public execute(studentData: studentData) {
-        return { success: true, errors:[] }
+        const studentOrError = Student.create(studentData)
+        if (!studentOrError.isSuccess) return {isSuccess: false, errors: studentOrError.errors}
+
+
+        return { isSuccess: true, errors: []}
     }
 }
